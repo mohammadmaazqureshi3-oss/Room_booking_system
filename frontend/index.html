@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartBuilding Secure Booking System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <!-- ==================== LOGIN/REGISTER VIEW ==================== -->
+        <div id="authView" class="row min-vh-100 align-items-center justify-content-center">
+            <div class="col-md-5 col-lg-4">
+                <div class="card shadow-lg border-0 rounded-4">
+                    <div class="card-body p-5">
+                        <!-- Logo and Title -->
+                        <div class="text-center mb-4">
+                            <div class="logo-circle mx-auto mb-3">
+                                <i class="bi bi-building-fill"></i>
+                            </div>
+                            <h2 class="fw-bold text-primary">SmartBuilding</h2>
+                            <p class="text-muted">Secure Booking System</p>
+                        </div>
+
+                        <!-- Demo Credentials Alert -->
+                        <div class="alert alert-info border-0 shadow-sm">
+                            <strong><i class="bi bi-info-circle me-2"></i>Demo Credentials</strong>
+                            <hr class="my-2">
+                            <small>
+                                <strong>Admin:</strong> admin@smartbuilding.com / admin123<br>
+                                <strong>User:</strong> user@smartbuilding.com / user123
+                            </small>
+                        </div>
+
+                        <!-- Tab Navigation -->
+                        <ul class="nav nav-pills nav-fill mb-4" id="authTabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="login-tab" data-bs-toggle="pill" 
+                                        data-bs-target="#login-panel" type="button" role="tab">
+                                    <i class="bi bi-box-arrow-in-right me-2"></i>Login
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="register-tab" data-bs-toggle="pill" 
+                                        data-bs-target="#register-panel" type="button" role="tab">
+                                    <i class="bi bi-person-plus me-2"></i>Register
+                                </button>
+                            </li>
+                        </ul>
+
+                        <!-- Tab Content -->
+                        <div class="tab-content" id="authTabContent">
+                            <!-- Login Form -->
+                            <div class="tab-pane fade show active" id="login-panel" role="tabpanel">
+                                <form id="loginForm">
+                                    <div class="mb-3">
+                                        <label class="form-label fw-semibold">
+                                            <i class="bi bi-envelope me-2"></i>Email Address
+                                        </label>
+                                        <input type="email" class="form-control form-control-lg" 
+                                               id="loginEmail" placeholder="your@email.com" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label fw-semibold">
+                                            <i class="bi bi-lock me-2"></i>Password
+                                        </label>
+                                        <div class="input-group">
+                                            <input type="password" class="form-control form-control-lg" 
+                                                   id="loginPassword" placeholder="••••••••" required>
+                                            <button class="btn btn-outline-secondary" type="button" 
+                                                    id="toggleLoginPassword">
+                                                <i class="bi bi-eye"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-lg w-100 mt-3">
+                                        <i class="bi bi-box-arrow-in-right me-2"></i>Login
+                                    </button>
+                                </form>
+                            </div>
+
+                            <!-- Register Form -->
+                            <div class="tab-pane fade" id="register-panel" role="tabpanel">
+                                <form id="registerForm">
+                                    <div class="mb-3">
+                                        <label class="form-label fw-semibold">
+                                            <i class="bi bi-person me-2"></i>Full Name
+                                        </label>
+                                        <input type="text" class="form-control form-control-lg" 
+                                               id="registerName" placeholder="John Doe" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label fw-semibold">
+                                            <i class="bi bi-envelope me-2"></i>Email Address
+                                        </label>
+                                        <input type="email" class="form-control form-control-lg" 
+                                               id="registerEmail" placeholder="your@email.com" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label fw-semibold">
+                                            <i class="bi bi-lock me-2"></i>Password
+                                        </label>
+                                        <div class="input-group">
+                                            <input type="password" class="form-control form-control-lg" 
+                                                   id="registerPassword" placeholder="••••••••" required>
+                                            <button class="btn btn-outline-secondary" type="button" 
+                                                    id="toggleRegisterPassword">
+                                                <i class="bi bi-eye"></i>
+                                            </button>
+                                        </div>
+                                        <small class="text-muted">Minimum 6 characters</small>
+                                    </div>
+                                    <button type="submit" class="btn btn-success btn-lg w-100 mt-3">
+                                        <i class="bi bi-person-plus me-2"></i>Create Account
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="text-center mt-4 text-muted">
+                    <small>
+                        <i class="bi bi-shield-check me-1"></i>
+                        Secured with Federated Architecture
+                    </small>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== DASHBOARD VIEW ==================== -->
+        <div id="dashboardView" style="display: none;">
+            <!-- Top Navigation Bar -->
+            <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">
+                        <i class="bi bi-building-fill me-2"></i>
+                        <strong>SmartBuilding</strong>
+                    </a>
+                    <div class="d-flex align-items-center">
+                        <span class="badge bg-success me-3">
+                            <i class="bi bi-shield-check me-1"></i>Federated Security Active
+                        </span>
+                        <div class="dropdown">
+                            <button class="btn btn-light dropdown-toggle" type="button" 
+                                    id="userDropdown" data-bs-toggle="dropdown">
+                                <i class="bi bi-person-circle me-2"></i>
+                                <span id="navUserName">User</span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><h6 class="dropdown-header" id="navUserEmail">user@example.com</h6></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item text-danger" href="#" id="logoutBtn">
+                                        <i class="bi bi-box-arrow-right me-2"></i>Logout
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Main Content Area -->
+            <div class="container-fluid py-4">
+                <!-- Tab Navigation -->
+                <ul class="nav nav-tabs nav-fill mb-4" id="mainTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="resources-tab" data-bs-toggle="tab" 
+                                data-bs-target="#resources-panel" type="button" role="tab">
+                            <i class="bi bi-grid-3x3 me-2"></i>Available Rooms
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="bookings-tab" data-bs-toggle="tab" 
+                                data-bs-target="#bookings-panel" type="button" role="tab">
+                            <i class="bi bi-calendar-check me-2"></i>My Bookings
+                            <span class="badge bg-primary ms-2" id="bookingsCount">0</span>
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation" id="adminTabNav" style="display: none;">
+                        <button class="nav-link" id="admin-tab" data-bs-toggle="tab" 
+                                data-bs-target="#admin-panel" type="button" role="tab">
+                            <i class="bi bi-gear me-2"></i>Admin Panel
+                        </button>
+                    </li>
+                </ul>
+
+                <!-- Tab Content -->
+                <div class="tab-content" id="mainTabContent">
+                    <!-- ==================== RESOURCES TAB ==================== -->
+                    <div class="tab-pane fade show active" id="resources-panel" role="tabpanel">
+                        <div class="row" id="resourcesList">
+                            <!-- Resources will be loaded here dynamically -->
+                            <div class="col-12 text-center py-5">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <p class="text-muted mt-3">Loading resources...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ==================== BOOKINGS TAB ==================== -->
+                    <div class="tab-pane fade" id="bookings-panel" role="tabpanel">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-header bg-white py-3">
+                                <h4 class="mb-0">
+                                    <i class="bi bi-calendar-check me-2 text-primary"></i>
+                                    My Bookings
+                                </h4>
+                            </div>
+                            <div class="card-body">
+                                <div id="bookingsList">
+                                    <!-- Bookings will be loaded here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ==================== ADMIN PANEL TAB ==================== -->
+                    <div class="tab-pane fade" id="admin-panel" role="tabpanel">
+                        <!-- Add Resource Form -->
+                        <div class="card border-0 shadow-sm mb-4">
+                            <div class="card-header bg-primary text-white py-3">
+                                <h4 class="mb-0">
+                                    <i class="bi bi-plus-circle me-2"></i>
+                                    Add New Resource
+                                </h4>
+                            </div>
+                            <div class="card-body">
+                                <form id="addResourceForm">
+                                    <div class="row">
+                                        <div class="col-md-4 mb-3">
+                                            <label class="form-label fw-semibold">Room Name</label>
+                                            <input type="text" class="form-control" id="resourceName" 
+                                                   placeholder="Conference Room D" required>
+                                        </div>
+                                        <div class="col-md-5 mb-3">
+                                            <label class="form-label fw-semibold">Description</label>
+                                            <input type="text" class="form-control" id="resourceDescription" 
+                                                   placeholder="Large meeting space with projector" required>
+                                        </div>
+                                        <div class="col-md-2 mb-3">
+                                            <label class="form-label fw-semibold">Capacity</label>
+                                            <input type="number" class="form-control" id="resourceCapacity" 
+                                                   placeholder="12" min="1" required>
+                                        </div>
+                                        <div class="col-md-1 mb-3">
+                                            <label class="form-label fw-semibold">&nbsp;</label>
+                                            <button type="submit" class="btn btn-success w-100">
+                                                <i class="bi bi-plus-lg"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Manage Resources -->
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-header bg-white py-3">
+                                <h4 class="mb-0">
+                                    <i class="bi bi-list me-2 text-primary"></i>
+                                    Manage Resources
+                                </h4>
+                            </div>
+                            <div class="card-body">
+                                <div id="adminResourcesList">
+                                    <!-- Admin resources list will be loaded here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MFA MODAL ==================== -->
+    <div class="modal fade" id="mfaModal" tabindex="-1" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">
+                        <i class="bi bi-shield-lock me-2"></i>
+                        Multi-Factor Authentication
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <!-- MFA Instructions -->
+                    <div class="alert alert-warning border-0 shadow-sm mb-4">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-exclamation-triangle-fill me-3 fs-4"></i>
+                            <div>
+                                <strong>Security Verification Required</strong>
+                                <p class="mb-0 small">
+                                    Enter the 6-digit code sent to your email
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- OTP Input -->
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold text-center w-100">
+                            Enter One-Time Password
+                        </label>
+                        <input type="text" class="form-control form-control-lg text-center otp-input" 
+                               id="mfaCode" maxlength="6" placeholder="• • • • • •" 
+                               style="font-size: 2rem; letter-spacing: 15px; font-family: monospace;">
+                    </div>
+
+                    <!-- Security Process Info -->
+                    <div class="bg-light rounded-3 p-3">
+                        <small class="text-muted">
+                            <strong><i class="bi bi-info-circle me-2"></i>Security Process:</strong>
+                        </small>
+                        <ol class="small text-muted mb-0 ps-3 mt-2">
+                            <li>MFA verification (Out-of-Band authentication)</li>
+                            <li>Backend validates OTP code</li>
+                            <li>Retrieves shards from 3 Docker containers</li>
+                            <li>Reconstructs complete PIN</li>
+                            <li>Displays PIN to authorized user</li>
+                        </ol>
+                    </div>
+
+                    <!-- Hidden booking ID -->
+                    <input type="hidden" id="mfaBookingId">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="bi bi-x-circle me-2"></i>Cancel
+                    </button>
+                    <button type="button" class="btn btn-primary" id="verifyMfaBtn">
+                        <i class="bi bi-key me-2"></i>Verify & Reveal PIN
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    <!-- Demo Code Badge -->
+                    <div class="text-center mb-4">
+                        <span class="badge bg-info text-dark fs-6 py-2 px-4">
+                            <i class="bi bi-key-fill me-2"></i>Demo Code: <strong>123456</strong>
+                        </span>
+                    </div>
+
+                    <!-- OTP Input -->
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold text-center w-100">
+                            Enter One-Time Password
+                        </label>
+                        <input type="text" class="form-control form-control-lg text-center otp-input" 
+                               id="mfaCode" maxlength="6" placeholder="• • • • • •" 
+                               style="font-size: 2rem; letter-spacing: 15px; font-family: monospace;">
+                    </div>
+
+                    <!-- Security Process Info -->
+                    <div class="bg-light rounded-3 p-3">
+                        <small class="text-muted">
+                            <strong><i class="bi bi-info-circle me-2"></i>Security Process:</strong>
+                        </small>
+                        <ol class="small text-muted mb-0 ps-3 mt-2">
+                            <li>MFA verification (Out-of-Band authentication)</li>
+                            <li>Backend validates OTP code</li>
+                            <li>Retrieves shards from 3 Docker containers</li>
+                            <li>Reconstructs complete PIN</li>
+                            <li>Displays PIN to authorized user</li>
+                        </ol>
+                    </div>
+
+                    <!-- Hidden booking ID -->
+                    <input type="hidden" id="mfaBookingId">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="bi bi-x-circle me-2"></i>Cancel
+                    </button>
+                    <button type="button" class="btn btn-primary" id="verifyMfaBtn">
+                        <i class="bi bi-key me-2"></i>Verify & Reveal PIN
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== EDIT RESOURCE MODAL ==================== -->
+    <div class="modal fade" id="editResourceModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header bg-warning">
+                    <h5 class="modal-title">
+                        <i class="bi bi-pencil-square me-2"></i>
+                        Edit Resource
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editResourceForm">
+                        <input type="hidden" id="editResourceId">
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Room Name</label>
+                            <input type="text" class="form-control" id="editResourceName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Description</label>
+                            <input type="text" class="form-control" id="editResourceDescription" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Capacity</label>
+                            <input type="number" class="form-control" id="editResourceCapacity" min="1" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-warning" id="updateResourceBtn">
+                        <i class="bi bi-check-circle me-2"></i>Update Resource
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="app.js"></script>
+</body>
+</html>

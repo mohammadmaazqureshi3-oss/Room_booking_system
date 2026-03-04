@@ -1,0 +1,106 @@
+version: '3.8'
+
+services:
+  database:
+    image: mysql:8.0
+    container_name: smartbuilding_db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: smartbuilding
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - smartbuilding_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  edge-node-a:
+    build:
+      context: .
+      dockerfile: Dockerfile.edge
+    container_name: edge_node_a
+    environment:
+      - PORT=3001
+      - NODE_KEY=node-a-secret-key-abc123
+    ports:
+      - "3001:3001"
+    networks:
+      - smartbuilding_network
+    restart: unless-stopped
+
+  edge-node-b:
+    build:
+      context: .
+      dockerfile: Dockerfile.edge
+    container_name: edge_node_b
+    environment:
+      - PORT=3002
+      - NODE_KEY=node-b-secret-key-def456
+    ports:
+      - "3002:3002"
+    networks:
+      - smartbuilding_network
+    restart: unless-stopped
+
+  edge-node-c:
+    build:
+      context: .
+      dockerfile: Dockerfile.edge
+    container_name: edge_node_c
+    environment:
+      - PORT=3003
+      - NODE_KEY=node-c-secret-key-ghi789
+    ports:
+      - "3003:3003"
+    networks:
+      - smartbuilding_network
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: smartbuilding_backend
+    environment:
+      - PORT=3000
+      - DB_HOST=database
+      - DB_USER=root
+      - DB_PASSWORD=rootpassword
+      - DB_NAME=smartbuilding
+      - JWT_SECRET=your-production-jwt-secret
+      - NODE_A_URL=http://edge-node-a:3001
+      - NODE_B_URL=http://edge-node-b:3002
+      - NODE_C_URL=http://edge-node-c:3003
+      - NODE_A_KEY=node-a-secret-key-abc123
+      - NODE_B_KEY=node-b-secret-key-def456
+      - NODE_C_KEY=node-c-secret-key-ghi789
+      # ADD THESE EMAIL ENVIRONMENT VARIABLES
+      - OTP_EXPIRY_MINUTES=10
+    ports:
+      - "3000:3000"
+    depends_on:
+      database:
+        condition: service_healthy
+      edge-node-a:
+        condition: service_started
+      edge-node-b:
+        condition: service_started
+      edge-node-c:
+        condition: service_started
+    networks:
+      - smartbuilding_network
+    restart: unless-stopped
+
+networks:
+  smartbuilding_network:
+    driver: bridge
+
+volumes:
+  db_data:
+
